@@ -1,6 +1,6 @@
 # music_festivals_website
 
-// This project was made as a university project by Maksym Poliuha
+// This project was made as a university project by Maksym Poliuha.
 
 The MusicFestivals website employs several modern web technologies to deliver a seamless user experience. The website is built on the Django web framework, which provides a powerful and flexible platform for web development. Django allows for easy integration with other technologies, as well as built-in security and performance features.
 
