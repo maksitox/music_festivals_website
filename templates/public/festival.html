@@ -1,0 +1,193 @@
+{% extends 'public/template/public_template.html' %}
+{% load static %}
+{% block title %} Festival {% endblock title %}
+
+
+
+{% block main %}
+        <!-- About Start -->
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="row g-5 align-items-center">
+                    <div class="col-lg-6">
+                        <h6 class="section-title text-start text-primary text-uppercase">{{ festival.date }}</h6>                        <h1 class="mb-4">Welcome to <span class="text-primary text-uppercase"><br>{{ festival.name }}</span></h1>
+                        <p class="mb-4">{{ festival.desc }}</p>
+                        <div class="row g-3 pb-4">
+                            <div class="col-sm-4 wow fadeIn" data-wow-delay="0.1s">
+                                <div class="border rounded p-1">
+                                    <div class="border rounded text-center p-4">
+                                        <i class="fa fa-file-alt fa-2x text-primary mb-2"></i>
+                                        <h2 class="mb-1" data-toggle="counter-up">{{ num_tickets }}</h2>
+                                        <p class="mb-0">Tickets</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 wow fadeIn" data-wow-delay="0.3s">
+                                <div class="border rounded p-1">
+                                    <div class="border rounded text-center p-4">
+                                        <i class="fa fa-times fa-2x text-primary mb-2"></i>
+                                        <h2 class="mb-1" data-toggle="counter-up">{{ num_sold_tickets }}</h2>
+                                        <p class="mb-0">Sold</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 wow fadeIn" data-wow-delay="0.5s">
+                                <div class="border rounded p-1">
+                                    <div class="border rounded text-center p-4">
+                                        <i class="fa fa-check fa-2x text-primary mb-2"></i>
+                                        <h2 class="mb-1" data-toggle="counter-up">{{ num_free_tickets }}</h2>
+                                        <p class="mb-0">Free</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="row g-3">
+                            <div class="col-6 text-end">
+                                <img  data-wow-delay="0.1s" src="{{ festival.img.url }}" style="margin-top: 5%;" width="220%">
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- About End -->
+{% if is_manager %}
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+            <h6 class="section-title text-center text-primary text-uppercase">{{ festival.name }}</h6>
+            <h1 class="mb-5">Our <span class="text-primary text-uppercase">Artists</span></h1>
+        </div>
+        <div class="row g-4">
+            {% for artist in artists %}
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="room-item shadow rounded overflow-hidden">
+                    <div class="position-relative">
+                        <img class="img-fluid" src="{{artist.img.url}}" alt="">
+                        {% if artist.nickname != None %}
+                        <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">
+                            {{ artist.name }}
+                        </small>
+                        {% endif %}
+                    </div>
+                    <div class="p-4 mt-2">
+                        <div class="d-flex justify-content-between mb-3">
+                            {% if artist.nickname == None %}
+                                <h5 class="mb-0">{{ artist.name }}</h5>
+                            {% else %}
+                                <h5 class="mb-0">{{ artist.nickname }}</h5>
+                            {% endif %}
+                            <div class="ps-2">
+                                <small class="fa fa-star text-primary"></small>
+                                <small class="fa fa-star text-primary"></small>
+                                <small class="fa fa-star text-primary"></small>
+                                <small class="fa fa-star text-primary"></small>
+                                <small class="fa fa-star text-primary"></small>
+                            </div>
+                        </div>
+                        <div class="d-flex mb-3">
+                            <small class="border-end me-3 pe-3"><i class="fa fa-address-book text-primary me-2"></i>{{ artist.contact }}</small>
+                            <small><i class="fa fa-dollar-sign text-primary me-2"></i>{{ artist.fee }}</small>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+
+
+        <!-- Room Start -->
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                    <h6 class="section-title text-center text-primary text-uppercase">{{ festival.name }}</h6>
+                    <h1 class="mb-5">Our <span class="text-primary text-uppercase">Artists</span></h1>
+                </div>
+                <div class="row g-4">
+                    {% for artist in artists %}
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="room-item shadow rounded overflow-hidden">
+                            <div class="position-relative">
+                                <img class="img-fluid" src="{{artist.img.url}}" alt="">
+                                {% if artist.nickname != None %}
+                                <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">
+                                    {{ artist.name }}
+                                </small>
+                                {% endif %}
+                            </div>
+                            <div class="p-4 mt-2">
+                                    <div class="d-flex justify-content-between mb-3">
+                                        {% if artist.nickname == None %}
+                                        <h5 class="mb-0">{{ artist.name }}</h5>
+                                        {% else %}
+                                        <h5 class="mb-0">{{ artist.nickname }}</h5>
+                                        {% endif %}
+                                        <div class="ps-2">
+                                            <a class="btn btn-sm btn-primary rounded py-2 px-4" href="{% url 'artist' artist.id %}">View Detail</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Room End -->
+{% endif %}
+
+       
+        <!-- Service Start -->
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                    <h6 class="section-title text-center text-primary text-uppercase">Ticket Types</h6>
+                    <h1 class="mb-5">Time to choose <span class="text-primary text-uppercase">Ticket</span></h1>
+                </div>
+                <div class="row g-4">
+                    {% for ticket in tickets %}
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <a class="service-item rounded" href="{% url 'buy' ticket.id %}">
+                            <div class="service-icon bg-transparent border rounded p-1">
+                                <div class="w-100 h-100 border rounded d-flex align-items-center justify-content-center">
+                                    {% if ticket.ticket_type == "student" %}
+                                    <i class="fa fa-user-graduate fa-2x text-primary"></i>
+                                    {% elif ticket.ticket_type == "adult" %}
+                                    <i class="fa fa-user fa-2x text-primary"></i>
+                                    {% elif ticket.ticket_type == "vip" %}
+                                    <i class="fa fa-star fa-2x text-primary"></i>
+                                    {% else %}
+                                    <i class="fa fa-user-graduate fa-2x text-primary"></i>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <h5 class="mb-3">{{ ticket.ticket_type }} </h5>
+                            <h6 class="section-title text-center text-primary text-uppercase">{{ ticket.price }}$</h6>
+                            {% if ticket.ticket_type == "student" %}
+                            <p class="text-body mb-0">The student ticket for the music festival is designed for full-time students with a valid ID and offers a discounted price.</p>
+                            {% elif ticket.ticket_type == "vip" %}
+                            <p class="text-body mb-0">Offers premium access to exclusive areas and amenities, such as front-row seats, backstage passes, and complimentary food and drinks.</p>
+                            {% else %}
+                            <p class="text-body mb-0">The adult ticket is the standard ticket for the music festival and is intended for non-student attendees.</p>
+                            {% endif %}
+                        </a>
+                    </div>
+                    {% endfor %}
+                    
+                </div>
+            </div>
+        </div>
+        <!-- Service End -->
+
+
+{% endblock main %}

@@ -1,0 +1,133 @@
+{% extends 'public/template/public_template.html' %}
+{% load static %}
+{% block title %} Festival {% endblock title %}
+{% block main %}
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+
+
+        <!-- About Start -->
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="row g-5 align-items-center">
+                    <div class="col-lg-6">
+                        <h6 class="section-title text-start text-primary text-uppercase">About Us</h6>
+                        <h1 class="mb-4">Welcome to <span class="text-primary text-uppercase"><br>Music Festivals</span></h1>
+                        <p class="mb-4">Welcome to our music festivals site! Here, you can explore an exciting lineup of upcoming 
+                            music festivals from around the world and purchase tickets to your favorite events. From iconic festivals 
+                            like Coachella and Glastonbury to up-and-coming events featuring the hottest new artists, we've got you 
+                            covered. Our site is user-friendly and easy to navigate, with detailed information about each festival 
+                            including dates, location, lineup, and ticket prices. So whether you're a die-hard music fan or simply 
+                            looking for a fun weekend getaway, come join us and experience the magic of live music at one of our 
+                            incredible festivals.</p>
+                        <div class="row g-3 pb-4">
+                            <div class="col-sm-4 wow fadeIn" data-wow-delay="0.1s">
+                                <div class="border rounded p-1">
+                                    <div class="border rounded text-center p-4">
+                                        <i class="fa fa-hotel fa-2x text-primary mb-2"></i>
+                                        <h2 class="mb-1" data-toggle="counter-up">{{ amount_fst }}</h2>
+                                        <p class="mb-0">Festivals</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 wow fadeIn" data-wow-delay="0.3s">
+                                <div class="border rounded p-1">
+                                    <div class="border rounded text-center p-4">
+                                        <i class="fa fa-users-cog fa-2x text-primary mb-2"></i>
+                                        <h2 class="mb-1" data-toggle="counter-up">{{ num_artists }}</h2>
+                                        <p class="mb-0">Artists</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 wow fadeIn" data-wow-delay="0.5s">
+                                <div class="border rounded p-1">
+                                    <div class="border rounded text-center p-4">
+                                        <i class="fa fa-users fa-2x text-primary mb-2"></i>
+                                        <h2 class="mb-1" data-toggle="counter-up">{{ amount_clients }}</h2>
+                                        <p class="mb-0">Clients</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="row g-3">
+                            <div class="col-6 text-end">
+                                <img class="img-fluid rounded w-75 wow zoomIn" data-wow-delay="0.1s" src="{% static 'img/about-1.jpg' %}" style="margin-top: 25%;">
+                            </div>
+                            <div class="col-6 text-start">
+                                <img class="img-fluid rounded w-100 wow zoomIn" data-wow-delay="0.3s" src="{% static 'img/about-2.jpg' %}">
+                            </div>
+                            <div class="col-6 text-end">
+                                <img class="img-fluid rounded w-50 wow zoomIn" data-wow-delay="0.5s" src="{% static 'img/about-3.jpg' %}">
+                            </div>
+                            <div class="col-6 text-start">
+                                <img class="img-fluid rounded w-75 wow zoomIn" data-wow-delay="0.7s" src="{% static 'img/about-4.jpg' %}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- About End -->
+
+
+        <!-- Room Start -->
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                    <h6 class="section-title text-center text-primary text-uppercase">Our Fests</h6>
+                    <h1 class="mb-5">Explore Our <span class="text-primary text-uppercase">Festivals</span></h1>
+                </div>
+                <div class="row g-4">
+                    {% for fest in festivals %}
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="room-item shadow rounded overflow-hidden">
+                            <div class="position-relative">
+                                <img class="img-fluid" src="{{fest.img.url}}" alt="">
+                                <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">
+                                </small>
+                            </div>
+                            <div class="p-4 mt-2">
+                                <div class="d-flex justify-content-between mb-3">
+                                    <h5 class="mb-0">{{ fest.name }}</h5>
+                                    <div class="ps-2">
+                                        <small class="fa fa-star text-primary"></small>
+                                        <small class="fa fa-star text-primary"></small>
+                                        <small class="fa fa-star text-primary"></small>
+                                        <small class="fa fa-star text-primary"></small>
+                                        <small class="fa fa-star text-primary"></small>
+                                    </div>
+                                </div>
+                                <div class="d-flex mb-3">
+                                    <small class="border-end me-3 pe-3"><i class="fa fa-map-marker text-primary me-2"></i>{{ fest.place }}</small>
+                                    <small class="border-end me-3 pe-3"><i class="fa fa-calendar text-primary me-2"></i>{{ fest.date }}</small>
+                                    <small><i class="fa fa-music text-primary me-2"></i>{{ fest.type }}</small>
+                                </div>
+                                <p class="text-body mb-3">{{ fest.desc }}</p>
+                                <div class="d-flex justify-content-between">
+                                    <a class="btn btn-sm btn-primary rounded py-2 px-4" href="{% url 'festival' fest.id %}">View Detail</a>
+                                    <a class="btn btn-sm btn-dark rounded py-2 px-4" href="">Buy Ticket</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Room End -->
+{% endblock main %}
+{% block ai %}
+
+{{ai_text}}
+
+{% endblock ai %}
